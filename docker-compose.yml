@@ -1,0 +1,37 @@
+# Orchestration des deux services : l'API (housing-api) et le frontend (housing-front).
+# Lancer depuis ce dossier :  docker compose up --build
+
+services:
+  housing-api:
+    build: ./housing-api
+    image: housing-api
+    container_name: housing-api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  housing-front:
+    build: ./housing-front
+    image: housing-front
+    container_name: housing-front
+    ports:
+      - "8501:8501"
+    environment:
+      # Le front joint l'API par le réseau interne de compose (nom du service).
+      - API_URL=http://housing-api:8000
+    depends_on:
+      housing-api:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

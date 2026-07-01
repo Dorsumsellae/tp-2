@@ -1,0 +1,9 @@
+# Caches Python
+__pycache__/
+*.pyc
+
+# Divers
+.DS_Store
+
+# Fichiers volumineux régénérables (le modèle est reconstruit au build de l'API)
+*.joblib

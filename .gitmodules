@@ -1,0 +1,8 @@
+[submodule "housing-api"]
+	path = housing-api
+	url = https://github.com/Dorsumsellae/housing-api.git
+	branch = main
+[submodule "housing-front"]
+	path = housing-front
+	url = https://github.com/Dorsumsellae/housing-front.git
+	branch = main
