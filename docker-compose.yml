@@ -24,7 +24,7 @@ services:
       - "8501:8501"
     environment:
       # Le front joint l'API par le réseau interne de compose (nom du service).
-      - API_URL=http://housing-api:8000
+      - API_URL=https://probable-parakeet-7wv4r4g96wrcwqpw-8000.app.github.dev/
     depends_on:
       housing-api:
         condition: service_healthy
